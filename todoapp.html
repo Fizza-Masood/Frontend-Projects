@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *{
+            font-family: 'Poppins', sans-serif;
+        }
+        .container{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            padding: 10px;
+            width: 700px;
+            margin-left: 700px;
+            border-radius: 5px;
+        }
+        #inp{
+            width: 500px;
+            height: 50px;
+            border-radius: 35px;
+            background-color: #fff;
+            font-size: 20px;
+            padding: 12px;
+            border: 0.5px solid black;
+            margin-bottom: 10px;
+        }
+        #btn{
+            width: 80px;
+            height: 60px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: cornflowerblue;
+        }
+        #all{
+            width: 80px;
+            height: 60px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: red;
+            color: white;
+        }
+        .container div div{
+            font-size: 20px;
+            list-style: none;
+            margin: 5px;
+        }
+
+        #delbtn{
+            width: 60px;
+            height: 30px;
+            border-radius: 20px;
+            cursor: pointer;
+            border: none;
+            background-color: red;
+            color: white;
+            margin-left: 60px;
+            margin: 5px;
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Todo App</h1>
+        <div class="input-box">
+        <input type="text" value="" id="inp" placeholder="Enter task here">
+        <button id="btn" onclick="add()">Add</button>
+        <button id="all">Delete All</button>
+        </div>
+
+        <div id="list">
+        </div>
+    </div>
+
+    <script>
+        // adding task button
+    function add(){
+        var inp = document.getElementById("inp").value;
+        if(inp == ""){
+            document.getElementById('inp').placeholder = 'Please enter task here!';
+        }
+        else{
+            var inp = document.getElementById("inp").value;
+        var list = document.getElementById("list");
+        var item = document.createElement('div');
+        item.appendChild(document.createTextNode(inp));
+        list.appendChild(item);
+        var del = document.createElement('button');
+        del.append(document.createTextNode('Delete'));
+        del.setAttribute('id','delbtn');
+        item.appendChild(del);
+        del.addEventListener('click', ()=>{
+            list.removeChild(item);
+        })
+        document.getElementById('inp').value = '';
+        }
+    };
+
+    // enter key function
+    var delall = document.getElementById('all');
+    var list = document.getElementById("list");
+var input = document.getElementById('inp');
+input.addEventListener('keyup',(e)=>{
+    if(e.keyCode === 13){
+        add();
+    }
+});
+
+// delete all button
+
+    delall.addEventListener('click', function(){
+        while(list.lastChild){
+            list.removeChild(list.lastChild);
+        }
+    });
+
+    </script>
+</body>
+</html>

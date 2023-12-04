@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quote App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body{
+            background-color: #bbc6fa;
+        }
+        .quote_box{
+            background-color: #fff;
+            width: 700px;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            border-radius: 10px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0px 10px 20px 0 rgba(0, 0, 0, 0.15);
+        }
+        .quote_box h1{
+            font-size: 32px;
+            margin-bottom: 40px;
+            position: relative;
+        }
+        .quote_box h1::after{
+            content: '';
+            width: 75px;
+            height: 3px;
+            border-radius: 3px;
+            background: rgb(23, 124, 229);
+            position: absolute;
+            left: 50%;
+            bottom: -10px;
+            transform: translate(-50%);
+        }
+        .quote_box blockquote{
+            font-size: 26px;
+            min-height: 110px;
+        }
+        .quote_box blockquote::before, .quote_box blockquote::after{
+            content: '"';
+        }
+        .quote_box span{
+            position: relative;
+            display: block;
+            margin-top: 10px;
+            float: right;
+        }
+        .quote_box span::before{
+            content: '';
+            width: 20px;
+            height: 2px;
+            background: rgb(23, 124, 229);
+            position: absolute;
+            top: 50%;
+            left: -30px;
+        }
+        .quote_box div{
+            width: 100%;
+            margin-top: 50px;
+            display: flex;
+            justify-content: center;
+        }
+        .quote_box button{
+            background: rgb(23, 124, 229);
+            color: #fff;
+            border-radius: 25px;
+            /* border: 1px solid rgb(23, 124, 229); */
+            border: none;
+            width: 150px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .quote_box button:active{
+            background-color: rgb(22, 39, 56);
+        }
+        .quote_box button:hover{
+            background-color: rgba(81, 156, 236, 0.993);
+        }
+    </style>
+</head>
+<body>
+    <div class="quote_box">
+        <h1>Quote of the day</h1>
+        <blockquote id="quote">Loading...</blockquote>
+        <span id="author">Loading...</span>
+        <div>
+            <button onclick="getquote(api_url)">New Quote</button>
+            <button onclick="tweet()">Tweet</button>
+        </div>
+    </div>
+
+    <script>
+        const quote = document.getElementById('quote');
+        const author = document.getElementById('author');
+const api_url = "https://api.quotable.io/random";
+
+async function getquote(url){
+    const response = await fetch(url);
+    var data = await response.json();
+    quote.innerHTML = data.content;
+    author.innerHTML = data.author;
+
+}
+
+getquote(api_url);
+
+function tweet(){
+    window.open("https://twitter.com/intent/tweet?text=" + quote.innerHTML , "Tweet Window", "width=600px, height=300px");
+}
+    </script>
+</body>
+</html>
